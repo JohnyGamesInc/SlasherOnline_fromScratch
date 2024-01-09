@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Photon.Pun;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -13,43 +12,60 @@ namespace SlasherOnline
     public class PlayfabLogin : MonoBehaviour
     {
         
-        [SerializeField] private PlayfabLoginUI ui;
-
+        private const string AuthGuidKey = "auth_guid_key";
+        
+        // [SerializeField] private PlayfabLoginUI ui;
+        [SerializeField] private EnterGameUI enterUI;
+        
         private readonly string titleId = "D4516";
         private readonly string devCustomId = "DevPlayer";
-        
 
-        private void Start()
+
+        private void Awake()
         {
-
-            if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
-                PlayFabSettings.staticSettings.TitleId = titleId;
-
-            ui.SubmitFormCallback += TryLogin;
+            // ui.SubmitFormCallback += TryLogin;
+            enterUI.SubscribeOnWithoutAccount(TryLogin);
         }
 
 
-        private void TryLogin(string loginId)
+        private void Start()
         {
-            if (string.IsNullOrEmpty(loginId))
-                loginId = devCustomId;
             
+            if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
+                PlayFabSettings.staticSettings.TitleId = titleId;
+        }
+
+
+        private void TryLogin()
+        {
+            
+            var needCreation = PlayerPrefs.HasKey(AuthGuidKey);
+            var id = PlayerPrefs.GetString(AuthGuidKey, Guid.NewGuid().ToString());
+
             var request = new LoginWithCustomIDRequest
             {
-                CustomId = loginId,
-                CreateAccount = true
+                CustomId = id,
+                CreateAccount = !needCreation
             };
             
-            PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
+            PlayFabClientAPI.LoginWithCustomID(request,
+                result =>
+                {
+                  PlayerPrefs.SetString(AuthGuidKey, id);
+                  OnLoginSuccess(result);
+                },
+                OnLoginFailure);
         }
 
 
         private void OnLoginSuccess(LoginResult result)
         {
             Debug.Log("Playfab Login SUCCESS");
-            ui.UpdateLabel(true);
             
-            StartCoroutine(WaitNSecs(2, ChangeSceneToPhoton));
+            // ui.UpdateLabel(true);
+            
+            // StartCoroutine(WaitNSecs(2, ChangeSceneToPhoton));
+            ChangeSceneToPhoton();
         }
 
 
@@ -57,7 +73,7 @@ namespace SlasherOnline
         {
             var errorMessage = error.GenerateErrorReport();
             Debug.LogError($"Playfab Login FAILED: {errorMessage}");
-            ui.UpdateLabel(false);
+            // ui.UpdateLabel(false);
         }
 
 
@@ -78,7 +94,7 @@ namespace SlasherOnline
 
         private void OnDestroy()
         {
-            ui.SubmitFormCallback -= TryLogin;
+            // ui.SubmitFormCallback -= TryLogin;
         }
         
         
