@@ -4,6 +4,7 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 namespace SlasherOnline
@@ -16,6 +17,8 @@ namespace SlasherOnline
         
         // [SerializeField] private PlayfabLoginUI ui;
         [SerializeField] private EnterGameUI enterUI;
+        [SerializeField] private GameObject progressBar;
+        [SerializeField] private GameObject errorLabel;
         
         private readonly string titleId = "D4516";
         private readonly string devCustomId = "DevPlayer";
@@ -48,6 +51,8 @@ namespace SlasherOnline
                 CreateAccount = !needCreation
             };
             
+            progressBar.gameObject.SetActive(true);
+            
             PlayFabClientAPI.LoginWithCustomID(request,
                 result =>
                 {
@@ -65,6 +70,7 @@ namespace SlasherOnline
             // ui.UpdateLabel(true);
             
             // StartCoroutine(WaitNSecs(2, ChangeSceneToPhoton));
+            progressBar.gameObject.SetActive(false);
             ChangeSceneToPhoton();
         }
 
@@ -73,6 +79,9 @@ namespace SlasherOnline
         {
             var errorMessage = error.GenerateErrorReport();
             Debug.LogError($"Playfab Login FAILED: {errorMessage}");
+            progressBar.gameObject.SetActive(false);
+            errorLabel.gameObject.SetActive(true);
+            errorLabel.GetComponent<Text>().text = errorMessage;
             // ui.UpdateLabel(false);
         }
 

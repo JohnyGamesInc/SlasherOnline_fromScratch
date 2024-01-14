@@ -37,12 +37,15 @@ namespace SlasherOnline
             {
                 createAccountCanvas.enabled = false;
                 enterInGameCanvas.enabled = true;
+                errorLabel.gameObject.SetActive(false);
             });
         }
 
 
         private void CreateAccount()
         {
+            progressBar.gameObject.SetActive(true);
+            
             PlayFabClientAPI.RegisterPlayFabUser(
                 new RegisterPlayFabUserRequest 
                 {
@@ -53,11 +56,15 @@ namespace SlasherOnline
                 result =>
                 {
                     Debug.Log("Success");
+                    progressBar.gameObject.SetActive(false);
                     SwitchPhotonScene();
                 },
                 error =>
                 {
+                    progressBar.gameObject.SetActive(false);
                     Debug.LogError($"Fail: {error.ErrorMessage}");
+                    errorLabel.gameObject.SetActive(true);
+                    errorLabel.GetComponent<Text>().text = error.ErrorMessage;
                 }
             );
             

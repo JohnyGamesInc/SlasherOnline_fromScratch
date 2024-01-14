@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,6 +13,9 @@ namespace SlasherOnline
         [SerializeField] private InputField passwordField;
 
         [SerializeField] protected Button backButton;
+        
+        [SerializeField] protected GameObject progressBar;
+        [SerializeField] protected GameObject errorLabel;
         
         
         protected string username;

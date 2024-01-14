@@ -1,5 +1,4 @@
-﻿using System;
-using PlayFab;
+﻿using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +15,7 @@ namespace SlasherOnline
         [SerializeField] protected Canvas enterInGameCanvas;
         [SerializeField] protected Canvas signInCanvas;
 
+        
         protected override void SubscribeElementsUI()
         {
             base.SubscribeElementsUI();
@@ -26,12 +26,15 @@ namespace SlasherOnline
             {
                 signInCanvas.enabled = false;
                 enterInGameCanvas.enabled = true;
+                errorLabel.gameObject.SetActive(false);
             });
         }
 
 
         private void SignIn()
         {
+            progressBar.gameObject.SetActive(true);
+            
             PlayFabClientAPI.LoginWithPlayFab(
                 new LoginWithPlayFabRequest
                 {
@@ -41,11 +44,15 @@ namespace SlasherOnline
                 result =>
                 {
                     Debug.Log("Success");
+                    progressBar.gameObject.SetActive(false);
                     SwitchPhotonScene();
                 },
                 error =>
                 {
+                    progressBar.gameObject.SetActive(false);
                     Debug.LogError($"Fail: {error.ErrorMessage}");
+                    errorLabel.gameObject.SetActive(true);
+                    errorLabel.GetComponent<Text>().text = error.ErrorMessage;
                 }
             );
         }
