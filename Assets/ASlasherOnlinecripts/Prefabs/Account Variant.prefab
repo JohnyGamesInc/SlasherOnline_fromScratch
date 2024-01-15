@@ -717,6 +717,8 @@ MonoBehaviour:
   usernameField: {fileID: 4430899172638337453}
   passwordField: {fileID: 4430899171662652593}
   backButton: {fileID: 3596432143186496489}
+  progressBar: {fileID: 7869993010683658352}
+  errorLabel: {fileID: 2079682631385514947}
   mailField: {fileID: 4430899171425685746}
   createAccountButton: {fileID: 3596432143243048846}
   createAccountCanvas: {fileID: 1852627881683224942}
@@ -751,6 +753,8 @@ MonoBehaviour:
   usernameField: {fileID: 950569039799857030}
   passwordField: {fileID: 4430899172971327000}
   backButton: {fileID: 3596432143498980864}
+  progressBar: {fileID: 7869993010683658352}
+  errorLabel: {fileID: 2079682631385514947}
   signInButton: {fileID: 3596432142952994205}
   enterInGameCanvas: {fileID: 1852627881886450528}
   signInCanvas: {fileID: 1852627882427782231}

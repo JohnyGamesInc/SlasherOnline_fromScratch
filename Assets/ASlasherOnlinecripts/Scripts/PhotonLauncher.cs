@@ -1,6 +1,7 @@
 using System;
 using Photon.Pun;
 using Photon.Realtime;
+using PlayFab;
 using UnityEngine;
 
 
@@ -60,7 +61,6 @@ namespace SlasherOnline
             ui.UpdateLabel(true);
         }
         
-        
-        
+
     }
 }

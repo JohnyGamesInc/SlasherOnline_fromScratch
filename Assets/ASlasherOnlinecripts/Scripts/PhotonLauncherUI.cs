@@ -15,7 +15,7 @@ namespace SlasherOnline
         [field:SerializeField] public Button ConnectButton { get; private set; }
         
         [field:SerializeField] public Button DisconnectButton { get; private set; }
-        
+
         [field: SerializeField] public TMP_Text StatusLabel { get; private set; }
         
         
@@ -28,9 +28,7 @@ namespace SlasherOnline
 
         public void Init(Action OnConnectButtonPressed, Action OnDisconnectButtonPressed)
         {
-            ConnectButton.onClick.AddListener(() => 
-                OnConnectButtonPressed()
-                );
+            ConnectButton.onClick.AddListener(() => OnConnectButtonPressed());
             DisconnectButton.onClick.AddListener(() => OnDisconnectButtonPressed());
         }
         

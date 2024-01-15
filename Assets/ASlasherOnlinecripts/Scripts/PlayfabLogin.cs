@@ -15,7 +15,6 @@ namespace SlasherOnline
         
         private const string AuthGuidKey = "auth_guid_key";
         
-        // [SerializeField] private PlayfabLoginUI ui;
         [SerializeField] private EnterGameUI enterUI;
         [SerializeField] private GameObject progressBar;
         [SerializeField] private GameObject errorLabel;
@@ -26,7 +25,6 @@ namespace SlasherOnline
 
         private void Awake()
         {
-            // ui.SubmitFormCallback += TryLogin;
             enterUI.SubscribeOnWithoutAccount(TryLogin);
         }
 
@@ -67,9 +65,6 @@ namespace SlasherOnline
         {
             Debug.Log("Playfab Login SUCCESS");
             
-            // ui.UpdateLabel(true);
-            
-            // StartCoroutine(WaitNSecs(2, ChangeSceneToPhoton));
             progressBar.gameObject.SetActive(false);
             ChangeSceneToPhoton();
         }
@@ -82,7 +77,6 @@ namespace SlasherOnline
             progressBar.gameObject.SetActive(false);
             errorLabel.gameObject.SetActive(true);
             errorLabel.GetComponent<Text>().text = errorMessage;
-            // ui.UpdateLabel(false);
         }
 
 
