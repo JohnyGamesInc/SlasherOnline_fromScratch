@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ASlasherOnlinecripts/Scenes/PlayfabLoginScene.unity
+    path: Assets/ASlasherOnlinecripts/Scenes/LoginPlayfabScene.unity
     guid: a1f4540106a77234b8ebfd4143fac37e
   - enabled: 1
-    path: Assets/ASlasherOnlinecripts/Scenes/PhotonLobbyScene.unity
+    path: Assets/ASlasherOnlinecripts/Scenes/LobbyPhotonScene.unity
     guid: 9aadc73189ecfa34cb82a8cada87d2f8
   - enabled: 1
     path: Assets/ASlasherOnlinecripts/Scenes/GameScene.unity

@@ -1,0 +1,541 @@
+{
+  "CatalogVersion": "DevCatalog",
+  "Catalog": [
+    {
+      "ItemId": "One",
+      "ItemClass": null,
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "My first item",
+      "Description": null,
+      "VirtualCurrencyPrices": null,
+      "RealCurrencyPrices": null,
+      "Tags": null,
+      "CustomData": null,
+      "Consumable": null,
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "sword_steel_old_rust",
+      "ItemClass": "Sword",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Old Rust Steel Sword",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "GG": 100
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"sword",
+        "weapon\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "sword_steel_sharp",
+      "ItemClass": "Sword",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Sharp Steel Sword",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "RM": 500
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"sword",
+        "weapon\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "sword_obsidian_rust",
+      "ItemClass": "Sword",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Obsidian Rust Sword",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "GG": 500
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"sword",
+        "weapon\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "sword_obsidian_sharp",
+      "ItemClass": "Sword",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Sharp Obsidian Sword",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "RM": 1000
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"sword",
+        "weapon\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "hammer_small_light",
+      "ItemClass": "Hammer",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Small Light Hammer",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "GG": 200
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"hammer",
+        "weapon\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "hammer_heavy_two_handed",
+      "ItemClass": "Hammer",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Two Handed Heavy Hammer",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "RM": 1500
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"hammer",
+        "weapon\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "axe_light_small",
+      "ItemClass": "Axe",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Small Light Axe",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "GG": 250
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"axe",
+        "weapon\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "axe_heave_two_handed",
+      "ItemClass": "Axe",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Heavy Two-Handed Axe",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "RM": 2000
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"axe",
+        "weapon\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "health_potion_small",
+      "ItemClass": "Potion",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Small Health Potion",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "GG": 100
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [
+        "\"health",
+        "potion\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "health_potion_middle",
+      "ItemClass": "Potion",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Middle Health Potion",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "GG": 200
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [
+        "\"health",
+        "potion\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "swords_bundle",
+      "ItemClass": "Bundle",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Swords Bundle",
+      "Description": null,
+      "VirtualCurrencyPrices": {},
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"swords",
+        "bundle\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": {
+        "BundledItems": [
+          "sword_steel_old_rust",
+          "sword_steel_sharp",
+          "sword_obsidian_rust",
+          "sword_obsidian_sharp"
+        ],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": null
+      },
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "hammers_bundle",
+      "ItemClass": "Bundle",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Hammers Bundle",
+      "Description": null,
+      "VirtualCurrencyPrices": {},
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"hammers",
+        "bundle\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": {
+        "BundledItems": [
+          "hammer_small_light",
+          "hammer_heavy_two_handed"
+        ],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": null
+      },
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "axes_bundle",
+      "ItemClass": "Bundle",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Axes Bundle",
+      "Description": null,
+      "VirtualCurrencyPrices": {},
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"axes",
+        "bundle\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": {
+        "BundledItems": [
+          "axe_light_small",
+          "axe_heave_two_handed"
+        ],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": null
+      },
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "mix_bundle",
+      "ItemClass": "Bundle",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Mix Bundle",
+      "Description": null,
+      "VirtualCurrencyPrices": {},
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"mix",
+        "bundle\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": {
+        "BundledItems": [
+          "sword_steel_old_rust",
+          "sword_obsidian_rust",
+          "hammer_small_light",
+          "axe_light_small",
+          "health_potion_small"
+        ],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": null
+      },
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "container_heavy",
+      "ItemClass": "Container",
+      "CatalogVersion": "DevCatalog",
+      "DisplayName": "Heavy Container",
+      "Description": null,
+      "VirtualCurrencyPrices": {},
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"heavy",
+        "container\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": {
+        "KeyItemId": null,
+        "ItemContents": [
+          "hammer_heavy_two_handed",
+          "axe_heave_two_handed",
+          "health_potion_middle",
+          "mix_bundle"
+        ],
+        "ResultTableContents": [],
+        "VirtualCurrencyContents": null
+      },
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    }
+  ],
+  "DropTables": [
+    {
+      "TableId": "drop_daily",
+      "Nodes": [
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "sword_steel_old_rust",
+          "Weight": 100
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "sword_obsidian_rust",
+          "Weight": 50
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "hammer_small_light",
+          "Weight": 80
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "axe_light_small",
+          "Weight": 60
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "health_potion_small",
+          "Weight": 50
+        }
+      ]
+    }
+  ]
+}
