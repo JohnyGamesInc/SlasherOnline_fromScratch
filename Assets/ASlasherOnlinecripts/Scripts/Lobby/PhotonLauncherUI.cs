@@ -48,6 +48,17 @@ namespace SlasherOnline
         }
         
         
+        public void UpdateLabel(string text, bool success)
+        {
+            StatusLabel.text = text;
+                
+            if (success) 
+                StatusLabel.color = Color.cyan;
+            else
+                StatusLabel.color = Color.red;
+        }
+        
+        
         private void OnDestroy()
         {
             ConnectButton.onClick.RemoveAllListeners();
