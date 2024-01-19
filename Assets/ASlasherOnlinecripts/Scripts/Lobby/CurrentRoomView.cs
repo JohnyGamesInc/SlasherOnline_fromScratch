@@ -108,9 +108,28 @@ namespace SlasherOnline
             Debug.Log($"Left from the room");
             connectionView.UpdateLabel($"Left from the room", true);
             
-            var userView = roomUsers[PhotonNetwork.LocalPlayer.UserId];
-            roomUsers.Remove(PhotonNetwork.LocalPlayer.UserId);
-            Destroy(userView.gameObject);
+            foreach (var userEntry in roomUsers)
+            {
+                var userView = roomUsers[userEntry.Key];
+                Destroy(userView.gameObject);
+            }
+            
+            roomUsers.Clear();
+
+            // var allKeys = roomUsers.Keys;
+            //
+            // foreach (var key in allKeys)
+            // {
+            //     var userView = roomUsers[key];
+            //     roomUsers.Remove(key);
+            //     Destroy(userView.gameObject);
+            // }
+           
+            
+            // var userView = roomUsers[PhotonNetwork.LocalPlayer.UserId];
+            // roomUsers.Remove(PhotonNetwork.LocalPlayer.UserId);
+            // Destroy(userView.gameObject);
+            
         }
         
         

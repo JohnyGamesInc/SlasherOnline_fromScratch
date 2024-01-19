@@ -37,6 +37,7 @@ namespace SlasherOnline
         private void Awake()
         {
             entryLobbyTemplate.SetActive(false);
+            QuickJoinButton.onClick.AddListener(QuickJoinButtonSubscribe);
         }
 
 
@@ -152,6 +153,12 @@ namespace SlasherOnline
         {
             Debug.Log("Lobby Entry Pressed");
             PhotonNetwork.JoinRoom(roomName);
+        }
+
+
+        private void QuickJoinButtonSubscribe()
+        {
+            Debug.Log("QuickJoin Button Pressed");
         }
 
 
