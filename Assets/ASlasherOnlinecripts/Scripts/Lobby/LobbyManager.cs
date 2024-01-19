@@ -74,10 +74,6 @@ namespace SlasherOnline
                 PhotonNetwork.ConnectUsingSettings(serverSettings.AppSettings);
                 PhotonNetwork.GameVersion = gameVersion;
             }
-            
-            
-            if (!PhotonNetwork.InRoom)
-                CreateRoom();
         }
         
         
