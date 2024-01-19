@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
@@ -19,15 +20,22 @@ namespace SlasherOnline
 
         [SerializeField] private ConnectionUIView connectionView;
         
+        [SerializeField] private TMP_InputField friendsIdInput;
+        [SerializeField] private Button submitFriendIdButton;
+        [SerializeField] private TMP_Text friendsIDs;
+        
         private CanvasGroup canvas;
         
         private TypedLobby defaultLobby = new TypedLobby("DefaultDevLobby", LobbyType.Default);
+
+        private List<string> expectedUsersList = new();
         
 
         private void Awake()
         {
             canvas = GetComponent<CanvasGroup>();
             Init(OnCreateRoomButtonSubscribe);
+            submitFriendIdButton.onClick.AddListener(OnReserveFriendIdSubscribe);
         }
 
 
@@ -67,6 +75,14 @@ namespace SlasherOnline
         }
         
         
+        public override void OnJoinedLobby()
+        {
+            base.OnJoinedLobby();
+            Debug.Log("From CreateRoomView: Joined To LOBBY");
+            CleanExpectedUsersListCache();
+        }
+        
+        
         public override void OnCreatedRoom()
         {
             Debug.Log($"Created room: {PhotonNetwork.CurrentRoom.Name}");
@@ -89,23 +105,42 @@ namespace SlasherOnline
                 MaxPlayers = 4,
                 PublishUserId = true,
                 IsVisible = !isPrivate,
-                IsOpen = !isPrivate
             };
             
             var enterRoomParams = new EnterRoomParams
             {
                 RoomName = roomName,
                 RoomOptions = roomOptions,
-                Lobby = defaultLobby
+                Lobby = defaultLobby,
+                ExpectedUsers = expectedUsersList.ToArray()
             };
             
-            PhotonNetwork.CreateRoom(enterRoomParams.RoomName, enterRoomParams.RoomOptions);
+            if (expectedUsersList.Count == 0)
+                PhotonNetwork.CreateRoom(enterRoomParams.RoomName, enterRoomParams.RoomOptions);
+            else 
+                PhotonNetwork.CreateRoom(enterRoomParams.RoomName, enterRoomParams.RoomOptions, defaultLobby, enterRoomParams.ExpectedUsers);
+        }
+        
+        
+        private void OnReserveFriendIdSubscribe()
+        {
+            var id = friendsIdInput.text;
+            friendsIDs.text += $"{id}, ";
+            expectedUsersList.Add(id);
+        }
+
+
+        private void CleanExpectedUsersListCache()
+        {
+            expectedUsersList.Clear();
+            friendsIDs.text = "IDs: ";
         }
         
 
         private void OnDestroy()
         {
             CreateRoomButton.onClick.RemoveAllListeners();
+            submitFriendIdButton.onClick.RemoveAllListeners();
         }
         
         

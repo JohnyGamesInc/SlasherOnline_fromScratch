@@ -28,14 +28,13 @@ namespace SlasherOnline
         [SerializeField] private CanvasGroup notReadyCanvas;
 
         [SerializeField] private Toggle closeRoomToggle;
+        [SerializeField] private Toggle visibleRoomToggle;
 
         [SerializeField] private ConnectionUIView connectionView;
         
         [SerializeField] private GameObject templateUserPanel;
-
-        [SerializeField] private TMP_InputField friendsIdInput;
-        [SerializeField] private Button submitFriendIdButton;
-        [SerializeField] private TMP_Text friendsIDs;
+        
+        [SerializeField] private TMP_Text expectedFriends;
 
 
         private CanvasGroup mainCanvas;
@@ -50,7 +49,7 @@ namespace SlasherOnline
             NotReadyButton.onClick.AddListener(NotReadyButtonSubscribe);
             LeaveRoomButton.onClick.AddListener(LeaveRoomButtonSubscribe);
             closeRoomToggle.onValueChanged.AddListener(OnCloseRoomToggle);
-            submitFriendIdButton.onClick.AddListener(OnReserveFriendIdSubscribe);
+            visibleRoomToggle.onValueChanged.AddListener(OnVisibleRoomToggle);
             
             templateUserPanel.SetActive(false);
         }
@@ -77,7 +76,7 @@ namespace SlasherOnline
                 mainCanvas.blocksRaycasts = false;
             }
         }
-        
+
         
         public override void OnJoinedRoom()
         {
@@ -95,7 +94,8 @@ namespace SlasherOnline
             });
 
             closeRoomToggle.isOn = !PhotonNetwork.CurrentRoom.IsOpen;
-            friendsIDs.text = PhotonNetwork.CurrentRoom.ExpectedUsers?.ToString();
+            visibleRoomToggle.isOn = !PhotonNetwork.CurrentRoom.IsVisible;
+            expectedFriends.text = PhotonNetwork.CurrentRoom.ExpectedUsers != null ? ExpectedUsersToString(PhotonNetwork.CurrentRoom.ExpectedUsers) : "";
         }
         
         
@@ -182,29 +182,28 @@ namespace SlasherOnline
             Debug.Log("Room Close toggled");
             PhotonNetwork.CurrentRoom.IsOpen = !isToggled;
             PhotonNetwork.CurrentRoom.IsVisible = !isToggled;
+            visibleRoomToggle.isOn = !isToggled;
         }
 
-
-        private void OnReserveFriendIdSubscribe()
+        
+        private void OnVisibleRoomToggle(bool isToggled)
         {
-            var id = friendsIdInput.text;
-            friendsIDs.text += $"{id}, ";
-            
-            List<string> listExpectedUsers = new List<string>();
-            if (PhotonNetwork.CurrentRoom.ExpectedUsers != null)
-                listExpectedUsers.AddRange(PhotonNetwork.CurrentRoom.ExpectedUsers);
-            
-            listExpectedUsers.Add(id);
-            
-            PhotonNetwork.CurrentRoom.SetExpectedUsers(listExpectedUsers.ToArray());
+            Debug.Log("Room Visibility toggled");
+            PhotonNetwork.CurrentRoom.IsVisible = isToggled;
         }
+        
+        
+        private string ExpectedUsersToString(string[] usersIds)
+        {
+            var text = "";
+            foreach (var user in usersIds)
+            {
+                text += user;
+            }
 
-
-        // private string ToStringExpectedFriends()
-        // {
-        //     
-        // }
-
+            return text;
+        }
+        
 
         private void OnDestroy()
         {
@@ -212,7 +211,6 @@ namespace SlasherOnline
             NotReadyButton.onClick.RemoveAllListeners();
             LeaveRoomButton.onClick.RemoveAllListeners();
             closeRoomToggle.onValueChanged.RemoveAllListeners();
-            submitFriendIdButton.onClick.RemoveAllListeners();
         }
         
         
