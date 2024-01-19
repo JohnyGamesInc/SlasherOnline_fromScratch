@@ -27,6 +27,8 @@ namespace SlasherOnline
         [SerializeField] private CanvasGroup readyCanvas;
         [SerializeField] private CanvasGroup notReadyCanvas;
 
+        [SerializeField] private Toggle closeRoomToggle;
+
         [SerializeField] private ConnectionUIView connectionView;
         
         [SerializeField] private GameObject templateUserPanel;
@@ -43,6 +45,7 @@ namespace SlasherOnline
             ReadyButton.onClick.AddListener(ReadyButtonSubscribe);
             NotReadyButton.onClick.AddListener(NotReadyButtonSubscribe);
             LeaveRoomButton.onClick.AddListener(LeaveRoomButtonSubscribe);
+            closeRoomToggle.onValueChanged.AddListener(OnCloseRoomToggle);
             
             templateUserPanel.SetActive(false);
         }
@@ -115,21 +118,6 @@ namespace SlasherOnline
             }
             
             roomUsers.Clear();
-
-            // var allKeys = roomUsers.Keys;
-            //
-            // foreach (var key in allKeys)
-            // {
-            //     var userView = roomUsers[key];
-            //     roomUsers.Remove(key);
-            //     Destroy(userView.gameObject);
-            // }
-           
-            
-            // var userView = roomUsers[PhotonNetwork.LocalPlayer.UserId];
-            // roomUsers.Remove(PhotonNetwork.LocalPlayer.UserId);
-            // Destroy(userView.gameObject);
-            
         }
         
         
@@ -181,11 +169,20 @@ namespace SlasherOnline
         }
 
 
+        private void OnCloseRoomToggle(bool isToggled)
+        {
+            Debug.Log("Room Close toggled");
+            PhotonNetwork.CurrentRoom.IsOpen = !isToggled;
+            PhotonNetwork.CurrentRoom.IsVisible = !isToggled;
+        }
+
+
         private void OnDestroy()
         {
             ReadyButton.onClick.RemoveAllListeners();
             NotReadyButton.onClick.RemoveAllListeners();
             LeaveRoomButton.onClick.RemoveAllListeners();
+            closeRoomToggle.onValueChanged.RemoveAllListeners();
         }
         
         
