@@ -40,6 +40,8 @@ namespace SlasherOnline
         private CanvasGroup mainCanvas;
 
         private Dictionary<string, RoomUserView> roomUsers = new();
+        
+        private TypedLobby defaultLobby = new TypedLobby("DefaultDevLobby", LobbyType.Default);
 
 
         private void Awake()
@@ -103,6 +105,8 @@ namespace SlasherOnline
         {
             base.OnJoinRoomFailed(returnCode, message);
             Debug.LogError($"Failed joining to the room: {returnCode} {message}");
+            connectionView.UpdateLabel($"Failed joining to the room {returnCode}: {message}", false);
+            PhotonNetwork.JoinLobby(defaultLobby);
         }
 
 
@@ -110,6 +114,7 @@ namespace SlasherOnline
         {
             Debug.LogError($"Failed joining to the room {returnCode}: {message}");
             connectionView.UpdateLabel($"Failed joining to the room {returnCode}: {message}", false);
+            PhotonNetwork.JoinLobby(defaultLobby);
         }
         
         
