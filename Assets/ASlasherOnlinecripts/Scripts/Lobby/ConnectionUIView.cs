@@ -9,7 +9,7 @@ using UnityEngine.UI;
 namespace SlasherOnline
 {
     
-    public class PhotonLauncherUI : MonoBehaviour
+    public class ConnectionUIView : MonoBehaviour
     {
 
         [field:SerializeField] public Button ConnectButton { get; private set; }

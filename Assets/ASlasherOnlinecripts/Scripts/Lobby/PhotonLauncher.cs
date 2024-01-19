@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using PlayFab;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace SlasherOnline
@@ -12,7 +13,8 @@ namespace SlasherOnline
     public class PhotonLauncher : MonoBehaviourPunCallbacks
     {
 
-        [SerializeField] private PhotonLauncherUI ui;
+        [FormerlySerializedAs("ui")]
+        [SerializeField] private ConnectionUIView uiView;
         
 
         private readonly string gameVersion = "1";
@@ -21,7 +23,7 @@ namespace SlasherOnline
         private void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
-            ui.Init(Connect, Disconnect);
+            uiView.Init(Connect, Disconnect);
         }
         
 
@@ -50,7 +52,7 @@ namespace SlasherOnline
             
             Debug.Log($"Disconnected reason: {cause}");
 
-            ui.UpdateLabel(false);
+            uiView.UpdateLabel(false);
         }
 
 
@@ -58,7 +60,7 @@ namespace SlasherOnline
         {
             Debug.Log("OnConnectedToMaster was called by PUN");
             
-            ui.UpdateLabel(true);
+            uiView.UpdateLabel(true);
         }
         
 

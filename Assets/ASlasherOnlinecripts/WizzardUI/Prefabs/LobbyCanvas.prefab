@@ -144,6 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2244251207921394025}
   - component: {fileID: 5434623004655309427}
+  - component: {fileID: 2001527780072518144}
   m_Layer: 5
   m_Name: LobbyCanvas
   m_TagString: Untagged
@@ -186,6 +187,25 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &2001527780072518144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2244251207921394026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70314a2552fe4ddcb9fa166e4cb7eead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <RoomName>k__BackingField: {fileID: 0}
+  <LobbyCode>k__BackingField: {fileID: 0}
+  <PlayersListContent>k__BackingField: {fileID: 0}
+  <PlayerEntryPrefab>k__BackingField: {fileID: 0}
+  <ReadyButton>k__BackingField: {fileID: 0}
+  <NotReadyButton>k__BackingField: {fileID: 0}
+  <LeaveRoomButton>k__BackingField: {fileID: 0}
 --- !u!1 &4415066352981488178
 GameObject:
   m_ObjectHideFlags: 0
