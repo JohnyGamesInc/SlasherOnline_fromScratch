@@ -17,9 +17,11 @@ namespace SlasherOnline
         [field:SerializeField] public Button DisconnectButton { get; private set; }
 
         [field: SerializeField] public TMP_Text StatusLabel { get; private set; }
-        
-        
-        
+
+        [field: SerializeField] public TMP_Text PlayerIdLabel { get; private set; }
+
+
+
         private void Awake()
         {
             

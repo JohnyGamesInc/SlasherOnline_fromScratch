@@ -37,7 +37,7 @@ namespace SlasherOnline
         }
 
 
-        public void Init(Action<string, string, bool> CreateRoomPressedCallback)
+        private void Init(Action<string, string, bool> CreateRoomPressedCallback)
         {
             CreateRoomButton.onClick.AddListener(() =>
             {
@@ -88,6 +88,8 @@ namespace SlasherOnline
             {
                 MaxPlayers = 4,
                 PublishUserId = true,
+                IsVisible = !isPrivate,
+                IsOpen = !isPrivate
             };
             
             var enterRoomParams = new EnterRoomParams

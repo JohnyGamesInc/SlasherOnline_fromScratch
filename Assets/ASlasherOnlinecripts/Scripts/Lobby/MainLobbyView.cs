@@ -38,6 +38,10 @@ namespace SlasherOnline
         {
             entryLobbyTemplate.SetActive(false);
             QuickJoinButton.onClick.AddListener(QuickJoinButtonSubscribe);
+            JoinRoomButton.onClick.AddListener(() =>
+            {
+                OnJoinRoomButtonSubscribe(RoomCodeInput.text);
+            });
         }
 
 
@@ -47,33 +51,6 @@ namespace SlasherOnline
             
             if(PhotonNetwork.CurrentLobby != null) 
                 LobbyName.text = $"{PhotonNetwork.CurrentLobby.Name} - {PhotonNetwork.CurrentLobby.Type}";
-        }
-
-
-        private void UpdateRoomsList(RoomInfo roomInfo, bool isRemoved, Action<string> JoinRoomCallback)
-        {
-            if (!isRemoved)
-            {
-                if (!roomsEntries.ContainsKey(roomInfo.Name))
-                {
-                    LobbyEntryView entryView = Instantiate(RoomsEntryPrefab, RoomsListContent.transform).GetComponent<LobbyEntryView>();
-                    entryView.RoomNameLabel.text = roomInfo.Name;
-                    entryView.PlayerCountLabel.text = $"{roomInfo.PlayerCount} / {roomInfo.MaxPlayers}";
-                    entryView.RoomEntryButton.onClick.AddListener(() => JoinRoomCallback(roomInfo.Name));
-                    roomsEntries[roomInfo.Name] = entryView;
-                }
-            }
-
-            if (isRemoved)
-            {
-                if (roomsEntries.ContainsKey(roomInfo.Name))
-                {
-                    var entryView = roomsEntries[roomInfo.Name];
-                    entryView.RoomEntryButton.onClick.RemoveAllListeners();
-                    Destroy(entryView);
-                    roomsEntries.Remove(roomInfo.Name);
-                }
-            }
         }
         
         
@@ -103,14 +80,6 @@ namespace SlasherOnline
         }
         
         
-        public override void OnRoomListUpdate(List<RoomInfo> roomList)
-        {
-            base.OnRoomListUpdate(roomList);
-            Debug.Log($"Rooms is [{roomList.Count}]");
-            UpdateCachedRoomList(roomList);
-        }
-        
-        
         public override void OnJoinedLobby()
         {
             base.OnJoinedLobby();
@@ -132,6 +101,14 @@ namespace SlasherOnline
         }
         
         
+        public override void OnRoomListUpdate(List<RoomInfo> roomList)
+        {
+            base.OnRoomListUpdate(roomList);
+            Debug.Log($"Rooms List is Updated [{roomList.Count}]");
+            UpdateCachedRoomList(roomList);
+        }
+        
+        
         private void UpdateCachedRoomList(List<RoomInfo> roomList)
         {
             for (int i = 0; i < roomList.Count; i++)
@@ -144,6 +121,33 @@ namespace SlasherOnline
                 else
                 {
                     UpdateRoomsList(info, false, OnJoinRoomButtonSubscribe);
+                }
+            }
+        }
+        
+        
+        private void UpdateRoomsList(RoomInfo roomInfo, bool isRemoved, Action<string> JoinRoomCallback)
+        {
+            if (!isRemoved)
+            {
+                if (!roomsEntries.ContainsKey(roomInfo.Name))
+                {
+                    LobbyEntryView entryView = Instantiate(RoomsEntryPrefab, RoomsListContent.transform).GetComponent<LobbyEntryView>();
+                    entryView.RoomNameLabel.text = roomInfo.Name;
+                    entryView.PlayerCountLabel.text = $"{roomInfo.PlayerCount} / {roomInfo.MaxPlayers}";
+                    entryView.RoomEntryButton.onClick.AddListener(() => JoinRoomCallback(roomInfo.Name));
+                    roomsEntries[roomInfo.Name] = entryView;
+                }
+            }
+
+            if (isRemoved)
+            {
+                if (roomsEntries.ContainsKey(roomInfo.Name))
+                {
+                    var entryView = roomsEntries[roomInfo.Name];
+                    entryView.RoomEntryButton.onClick.RemoveAllListeners();
+                    Destroy(entryView.gameObject);
+                    roomsEntries.Remove(roomInfo.Name);
                 }
             }
         }

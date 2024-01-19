@@ -130,6 +130,8 @@ namespace SlasherOnline
             connectionView.UpdateLabel("OnConnectedToMaster was called by PUN", true);
             // CreateRoom();
             PhotonNetwork.JoinLobby(defaultLobby);
+
+            connectionView.PlayerIdLabel.text = PhotonNetwork.LocalPlayer.UserId;
         }
         
         

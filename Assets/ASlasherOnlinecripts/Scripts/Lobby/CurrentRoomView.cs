@@ -33,6 +33,10 @@ namespace SlasherOnline
         
         [SerializeField] private GameObject templateUserPanel;
 
+        [SerializeField] private TMP_InputField friendsIdInput;
+        [SerializeField] private Button submitFriendIdButton;
+        [SerializeField] private TMP_Text friendsIDs;
+
 
         private CanvasGroup mainCanvas;
 
@@ -46,6 +50,7 @@ namespace SlasherOnline
             NotReadyButton.onClick.AddListener(NotReadyButtonSubscribe);
             LeaveRoomButton.onClick.AddListener(LeaveRoomButtonSubscribe);
             closeRoomToggle.onValueChanged.AddListener(OnCloseRoomToggle);
+            submitFriendIdButton.onClick.AddListener(OnReserveFriendIdSubscribe);
             
             templateUserPanel.SetActive(false);
         }
@@ -88,6 +93,9 @@ namespace SlasherOnline
                 roomUsers[p.UserId] = roomUser;
                 roomUser.PlayerName.text = p.UserId;
             });
+
+            closeRoomToggle.isOn = !PhotonNetwork.CurrentRoom.IsOpen;
+            friendsIDs.text = PhotonNetwork.CurrentRoom.ExpectedUsers?.ToString();
         }
         
         
@@ -177,12 +185,34 @@ namespace SlasherOnline
         }
 
 
+        private void OnReserveFriendIdSubscribe()
+        {
+            var id = friendsIdInput.text;
+            friendsIDs.text += $"{id}, ";
+            
+            List<string> listExpectedUsers = new List<string>();
+            if (PhotonNetwork.CurrentRoom.ExpectedUsers != null)
+                listExpectedUsers.AddRange(PhotonNetwork.CurrentRoom.ExpectedUsers);
+            
+            listExpectedUsers.Add(id);
+            
+            PhotonNetwork.CurrentRoom.SetExpectedUsers(listExpectedUsers.ToArray());
+        }
+
+
+        // private string ToStringExpectedFriends()
+        // {
+        //     
+        // }
+
+
         private void OnDestroy()
         {
             ReadyButton.onClick.RemoveAllListeners();
             NotReadyButton.onClick.RemoveAllListeners();
             LeaveRoomButton.onClick.RemoveAllListeners();
             closeRoomToggle.onValueChanged.RemoveAllListeners();
+            submitFriendIdButton.onClick.RemoveAllListeners();
         }
         
         
