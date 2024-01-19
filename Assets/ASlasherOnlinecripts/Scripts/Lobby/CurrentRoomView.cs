@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
@@ -78,9 +79,12 @@ namespace SlasherOnline
             
             connectionView.UpdateLabel($"Joined to the room: {PhotonNetwork.CurrentRoom.Name}", true);
 
-            RoomUserView roomUser = Instantiate(PlayerEntryPrefab, PlayersListContent.transform);
-            roomUsers[PhotonNetwork.LocalPlayer.UserId] = roomUser;
-            roomUser.PlayerName.text = PhotonNetwork.LocalPlayer.UserId;
+            PhotonNetwork.PlayerList.ToList().ForEach(p =>
+            {
+                RoomUserView roomUser = Instantiate(PlayerEntryPrefab, PlayersListContent.transform);
+                roomUsers[p.UserId] = roomUser;
+                roomUser.PlayerName.text = p.UserId;
+            });
         }
         
         
