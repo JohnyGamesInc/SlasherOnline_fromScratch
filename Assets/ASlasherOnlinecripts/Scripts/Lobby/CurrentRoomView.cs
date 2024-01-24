@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
 namespace SlasherOnline
@@ -43,6 +45,8 @@ namespace SlasherOnline
         
         private TypedLobby defaultLobby = new TypedLobby("DefaultDevLobby", LobbyType.Default);
 
+        private Coroutine playerStatusChecker;
+
 
         private void Awake()
         {
@@ -54,7 +58,15 @@ namespace SlasherOnline
             visibleRoomToggle.onValueChanged.AddListener(OnVisibleRoomToggle);
             
             templateUserPanel.SetActive(false);
+            
+            PhotonNetwork.AutomaticallySyncScene = true;
         }
+
+
+        // private void Start()
+        // {
+        //     playerStatusChecker = StartCoroutine(CheckAllIsReady());
+        // }
 
 
         private void Update()
@@ -95,12 +107,26 @@ namespace SlasherOnline
                 roomUser.PlayerName.text = p.UserId;
             });
 
+            UpdateCurrentRoomPlayersEntries();
+
             closeRoomToggle.isOn = !PhotonNetwork.CurrentRoom.IsOpen;
             visibleRoomToggle.isOn = !PhotonNetwork.CurrentRoom.IsVisible;
             expectedFriends.text = PhotonNetwork.CurrentRoom.ExpectedUsers != null ? ExpectedUsersToString(PhotonNetwork.CurrentRoom.ExpectedUsers) : "";
         }
+
         
-        
+        private void UpdateCurrentRoomPlayersEntries()
+        {
+            foreach (var player in PhotonNetwork.PlayerList)
+            {
+                var playerEntry = roomUsers[player.UserId];
+                player.CustomProperties.TryGetValue("IsReady", out object isReady);
+                if (isReady != null) 
+                    playerEntry.Status.text = (bool) isReady ? "<color=#0C9F00>Ready" : "<color=#B70000>Not Ready";
+            }
+        }
+
+
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
             base.OnJoinRoomFailed(returnCode, message);
@@ -165,19 +191,113 @@ namespace SlasherOnline
 
         private void ReadyButtonSubscribe()
         {
+            readyCanvas.alpha = 0;
+            readyCanvas.interactable = false;
+            readyCanvas.blocksRaycasts = false;
             
+            notReadyCanvas.alpha = 1;
+            notReadyCanvas.interactable = true;
+            notReadyCanvas.blocksRaycasts = true;
+            
+            if (!PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+                {
+                    {"IsReady", true},
+                }))
+            {
+                Debug.LogError("Failed to Set IsReady custom property");
+            }
+            
+            photonView.RPC(nameof(UpdateRoomPlayerStatusRPC), RpcTarget.All, true, PhotonNetwork.LocalPlayer.UserId);
+            // PhotonNetwork.LoadLevel("PunBasicBigRoom");
+            photonView.RPC(nameof(LevelLoadRPC), RpcTarget.All);
+            // SceneManager.LoadScene("PunBasicBigRoom");
         }
 
 
         private void NotReadyButtonSubscribe()
         {
+            readyCanvas.alpha = 1;
+            readyCanvas.interactable = true;
+            readyCanvas.blocksRaycasts = true;
             
+            notReadyCanvas.alpha = 0;
+            notReadyCanvas.interactable = false;
+            notReadyCanvas.blocksRaycasts = false;
+            
+            if (!PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+                {
+                    {"IsReady", false},
+                }))
+            {
+                Debug.LogError("Failed to Set IsReady custom property");
+            }
+            
+            photonView.RPC(nameof(UpdateRoomPlayerStatusRPC), RpcTarget.All, false, PhotonNetwork.LocalPlayer.UserId);
+        }
+
+
+        [PunRPC]
+        private void UpdateRoomPlayerStatusRPC(bool isReady, string userId)
+        {
+            var roomUser = roomUsers[userId];
+            roomUser.Status.text = isReady ? "<color=#0C9F00>Ready" : "<color=#B70000>Not Ready";
+            PhotonNetwork.LoadLevel("PunBasicBigRoom");
+        }
+
+
+        [PunRPC]
+        private void LevelLoadRPC()
+        {
+            // StartCoroutine(LevelLoader());
+            PhotonNetwork.LoadLevel("PunBasicBigRoom");
+        }
+
+
+        private IEnumerator LevelLoader()
+        {
+            PhotonNetwork.LoadLevel("PunBasicBigRoom");
+
+            while (PhotonNetwork.LevelLoadingProgress < 1)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+        }
+
+
+        private IEnumerator CheckAllIsReady()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(1.0f);
+                
+                if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient)
+                {
+                    foreach (var player in PhotonNetwork.PlayerList)
+                    {
+                        player.CustomProperties.TryGetValue("IsReady", out object IsReady);
+                        if(IsReady == null || !(bool)IsReady) 
+                            yield break;
+                    }
+                    PhotonNetwork.LoadLevel("PunBasicBigRoom");
+                }
+            }
         }
 
 
         private void LeaveRoomButtonSubscribe()
         {
             Debug.Log("Leave Room button Pressed");
+            
+            NotReadyButtonSubscribe();
+            
+            if (!PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+                {
+                    {"IsReady", null},
+                }))
+            {
+                Debug.LogError("Failed to Set IsReady custom property");
+            }
+
             PhotonNetwork.LeaveRoom();
         }
 
@@ -216,6 +336,8 @@ namespace SlasherOnline
             NotReadyButton.onClick.RemoveAllListeners();
             LeaveRoomButton.onClick.RemoveAllListeners();
             closeRoomToggle.onValueChanged.RemoveAllListeners();
+            
+            StopAllCoroutines();
         }
         
         

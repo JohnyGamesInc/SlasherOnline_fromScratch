@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 11484610}
   - component: {fileID: 11413802}
   m_Layer: 0
-  m_Name: My Robot Kyle -done-
+  m_Name: RobotKyle
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
