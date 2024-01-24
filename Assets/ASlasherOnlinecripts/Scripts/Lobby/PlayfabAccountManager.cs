@@ -128,7 +128,7 @@ namespace SlasherOnline
                ConsumeCount = 1,
                ItemInstanceId = itemInstanceId
             }, 
-                result => Debug.Log("Consume item Success"),
+                result => Debug.Log($"Consume item Success: {itemInstanceId}"),
                 error => OnRequestError(error.GenerateErrorReport()));
         }
         

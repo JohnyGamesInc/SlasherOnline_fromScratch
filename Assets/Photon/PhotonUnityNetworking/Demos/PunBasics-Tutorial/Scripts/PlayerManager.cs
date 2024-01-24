@@ -46,6 +46,14 @@ namespace Photon.Pun.Demo.PunBasics
 
         #endregion
 
+        private float id;
+
+        public float Id
+        {
+            get => photonView.ViewID;
+            set => id = value;
+        }
+
         #region MonoBehaviour CallBacks
 
         /// <summary>
@@ -281,12 +289,14 @@ namespace Photon.Pun.Demo.PunBasics
                 // We own this player: send the others our data
                 stream.SendNext(this.IsFiring);
                 stream.SendNext(this.Health);
+                stream.SendNext(Id);
             }
             else
             {
                 // Network player, receive data
                 this.IsFiring = (bool)stream.ReceiveNext();
                 this.Health = (float)stream.ReceiveNext();
+                Id = (float) stream.ReceiveNext();
             }
         }
 
