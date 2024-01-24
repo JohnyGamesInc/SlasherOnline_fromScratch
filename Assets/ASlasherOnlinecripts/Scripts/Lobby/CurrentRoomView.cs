@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -46,7 +47,10 @@ namespace SlasherOnline
         private TypedLobby defaultLobby = new TypedLobby("DefaultDevLobby", LobbyType.Default);
 
         private Coroutine playerStatusChecker;
-
+        
+        
+        public UnityEvent myEvent;
+        
 
         private void Awake()
         {
@@ -63,10 +67,10 @@ namespace SlasherOnline
         }
 
 
-        // private void Start()
-        // {
-        //     playerStatusChecker = StartCoroutine(CheckAllIsReady());
-        // }
+        private void Start()
+        {
+            playerStatusChecker = StartCoroutine(CheckAllIsReady());
+        }
 
 
         private void Update()
@@ -209,7 +213,7 @@ namespace SlasherOnline
             
             photonView.RPC(nameof(UpdateRoomPlayerStatusRPC), RpcTarget.All, true, PhotonNetwork.LocalPlayer.UserId);
             // PhotonNetwork.LoadLevel("PunBasicBigRoom");
-            photonView.RPC(nameof(LevelLoadRPC), RpcTarget.All);
+            // photonView.RPC(nameof(LevelLoadRPC), RpcTarget.MasterClient);
             // SceneManager.LoadScene("PunBasicBigRoom");
         }
 
@@ -241,7 +245,7 @@ namespace SlasherOnline
         {
             var roomUser = roomUsers[userId];
             roomUser.Status.text = isReady ? "<color=#0C9F00>Ready" : "<color=#B70000>Not Ready";
-            PhotonNetwork.LoadLevel("PunBasicBigRoom");
+            // PhotonNetwork.LoadLevel("PunBasicBigRoom");
         }
 
 
@@ -249,37 +253,51 @@ namespace SlasherOnline
         private void LevelLoadRPC()
         {
             // StartCoroutine(LevelLoader());
-            PhotonNetwork.LoadLevel("PunBasicBigRoom");
+            if (PhotonNetwork.IsMasterClient)
+            {
+                // Load the scene for all clients
+                PhotonNetwork.LoadLevel("PunBasicBigRoom");
+                // StartCoroutine(LevelLoader());
+            }
         }
 
 
         private IEnumerator LevelLoader()
         {
+            PhotonNetwork.IsMessageQueueRunning = false;
             PhotonNetwork.LoadLevel("PunBasicBigRoom");
-
+            
             while (PhotonNetwork.LevelLoadingProgress < 1)
             {
                 yield return new WaitForEndOfFrame();
             }
+            PhotonNetwork.IsMessageQueueRunning = true;
         }
 
 
         private IEnumerator CheckAllIsReady()
         {
+            bool allIsReady = true;
+            
+            Debug.Log("Started Coroutine CheckAllIsReady");
             while (true)
             {
                 yield return new WaitForSeconds(1.0f);
+
+                allIsReady = true;
+
+                if (PhotonNetwork.PlayerList.Length == 0) continue;
                 
-                if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient)
+                foreach (var player in PhotonNetwork.PlayerList)
                 {
-                    foreach (var player in PhotonNetwork.PlayerList)
-                    {
-                        player.CustomProperties.TryGetValue("IsReady", out object IsReady);
-                        if(IsReady == null || !(bool)IsReady) 
-                            yield break;
-                    }
-                    PhotonNetwork.LoadLevel("PunBasicBigRoom");
+                    player.CustomProperties.TryGetValue("IsReady", out object IsReady);
+                    if (IsReady == null || !(bool) IsReady)
+                        allIsReady = false;
                 }
+
+                if (allIsReady) 
+                    photonView.RPC(nameof(LevelLoadRPC), RpcTarget.MasterClient);
+                    // PhotonNetwork.LoadLevel("PunBasicBigRoom");
             }
         }
 

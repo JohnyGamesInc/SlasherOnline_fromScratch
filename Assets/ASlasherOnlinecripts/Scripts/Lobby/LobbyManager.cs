@@ -202,8 +202,8 @@ namespace SlasherOnline
 
         private void OnDestroy()
         {
-            if (PhotonNetwork.IsConnected) 
-                PhotonNetwork.Disconnect();
+            // if (PhotonNetwork.IsConnected) 
+            //     PhotonNetwork.Disconnect();
         }
         
         

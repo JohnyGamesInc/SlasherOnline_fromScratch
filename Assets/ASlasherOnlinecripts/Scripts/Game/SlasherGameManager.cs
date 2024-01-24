@@ -1,4 +1,6 @@
-﻿using Photon.Pun;
+﻿using System.Collections.Generic;
+using ExitGames.Client.Photon;
+using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,6 +29,7 @@ namespace SlasherOnline
         private GameObject playerPrefab;
         
         
+        
         private void Start()
 		{
 			Instance = this;
@@ -35,7 +38,6 @@ namespace SlasherOnline
 			if (!PhotonNetwork.IsConnected)
 			{
 				SceneManager.LoadScene("LobbyPhotonScene");
-				
 				return;
 			}
 
@@ -72,6 +74,7 @@ namespace SlasherOnline
 		
         public override void OnJoinedRoom()
         {
+	        Debug.Log("GameScene: Joined the room");
             // Note: it is possible that this monobehaviour is not created (or active) when OnJoinedRoom happens
             // due to that the Start() method also checks if the local player character was network instantiated!
             if (PlayerManager.LocalPlayerInstance == null)
@@ -86,13 +89,13 @@ namespace SlasherOnline
         
         public override void OnPlayerEnteredRoom(Player other)
 		{
-			Debug.Log( "OnPlayerEnteredRoom() " + other.NickName); // not seen if you're the player connecting
+			Debug.Log("OnPlayerEnteredRoom() " + other.NickName); // not seen if you're the player connecting
 		}
         
 		
 		public override void OnPlayerLeftRoom(Player other)
 		{
-			Debug.Log( "OnPlayerLeftRoom() " + other.NickName); // seen when other disconnects
+			Debug.Log("OnPlayerLeftRoom() " + other.NickName); // seen when other disconnects
 
 			if (PhotonNetwork.IsMasterClient)
 			{
@@ -100,19 +103,21 @@ namespace SlasherOnline
 				// LoadArena(); 
 			}
 		}
-
+		
 		
 		/// <summary>
 		/// Called when the local player left the room. We need to load the launcher scene.
 		/// </summary>
 		public override void OnLeftRoom()
 		{
+			Debug.Log("Game Scene: Left Room");
 			SceneManager.LoadScene("LobbyPhotonScene");
 		}
 		
 
 		private void LeaveRoom() 
 		{
+			Debug.Log("Game Scene: Leave Room");
 			PhotonNetwork.LeaveRoom();
 		}
 
@@ -134,7 +139,7 @@ namespace SlasherOnline
 
 			PhotonNetwork.LoadLevel("PunBasicBigRoom");
 		}
-
-
-	}
+		
+		
+    }
 }
