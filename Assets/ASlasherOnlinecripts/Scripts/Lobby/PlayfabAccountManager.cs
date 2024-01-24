@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -22,10 +24,12 @@ namespace SlasherOnline
 
         private string playfabId;
 
+        private const string daily_reward_time = "daily_reward_time";
+
 
         private void Awake()
         {
-            RemoveAccountButton.onClick.AddListener(RemoveAccount);
+            // RemoveAccountButton.onClick.AddListener(RemoveAccount);
         }
 
 
@@ -43,6 +47,89 @@ namespace SlasherOnline
                 {
                     Debug.LogError($"Error: {error.GenerateErrorReport()}");
                 });
+            
+            SetUserData();
+            GetInventory();
+            // MakePurchase();
+        }
+
+
+        private void SetUserData()
+        {
+            PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
+            {
+                Data = new Dictionary<string, string>()
+                {
+                    {daily_reward_time, DateTime.UtcNow.ToString()}
+                }
+            },
+                result =>
+                {
+                    Debug.Log("Successfully updated User Data");
+                    GetUserData(playfabId);
+                },
+                error => OnRequestError(error.GenerateErrorReport())
+            );
+        }
+
+
+        private void GetUserData(string playfabId)
+        {
+            PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+                {
+                    PlayFabId = playfabId,
+                    Keys = null
+                },
+                result =>
+                {
+                    Debug.Log("Got User Data");
+                    if (result.Data == null || !result.Data.ContainsKey(daily_reward_time))
+                        Debug.Log($"No key in data {daily_reward_time}");
+                    else
+                        Debug.Log($"Last Daily Reward Time [{result.Data[daily_reward_time].Value}]");
+                },
+                error => OnRequestError(error.GenerateErrorReport()));
+        }
+
+
+        private void MakePurchase()
+        {
+            PlayFabClientAPI.PurchaseItem(new PurchaseItemRequest()
+            {
+                CatalogVersion = "DevCatalog",
+                ItemId = "health_potion_small",
+                Price = 100,
+                VirtualCurrency = "GG"
+            }, 
+                result => Debug.Log("Purchasing Success"),
+                error => OnRequestError(error.GenerateErrorReport()));
+        }
+
+
+        private void GetInventory()
+        {
+            PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), 
+                result => ShowInventory(result.Inventory),
+                error => OnRequestError(error.GenerateErrorReport()));
+        }
+
+
+        private void ShowInventory(List<ItemInstance> inventory)
+        {
+            var firstItem = inventory.First();
+            ConsumeItem(firstItem.ItemInstanceId);
+        }
+
+
+        private void ConsumeItem(string itemInstanceId)
+        {
+            PlayFabClientAPI.ConsumeItem(new ConsumeItemRequest
+            {
+               ConsumeCount = 1,
+               ItemInstanceId = itemInstanceId
+            }, 
+                result => Debug.Log("Consume item Success"),
+                error => OnRequestError(error.GenerateErrorReport()));
         }
         
         
@@ -93,11 +180,17 @@ namespace SlasherOnline
             //     }
             // }
         }
+
+
+        private void OnRequestError(string errorMessage)
+        {
+            Debug.LogError(errorMessage);
+        }
         
         
         private void OnDestroy()
         {
-            RemoveAccountButton.onClick.RemoveAllListeners();
+            // RemoveAccountButton.onClick.RemoveAllListeners();
         }
         
         
