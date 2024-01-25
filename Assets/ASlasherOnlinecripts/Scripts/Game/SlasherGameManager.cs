@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 using Photon.Realtime;
 
 
-
-namespace SlasherOnline
-{
+//
+// namespace SlasherOnline
+// {
 	/// <summary>
 	/// Game manager.
 	/// Connects and watch Photon Status, Instantiate Player
@@ -27,9 +27,13 @@ namespace SlasherOnline
         [Tooltip("The prefab to use for representing the player")]
         [SerializeField]
         private GameObject playerPrefab;
-        
-        
-        
+
+        public static int SpawnCounter = -1;
+
+        public List<Transform> Spawners = new ();
+
+
+
         private void Start()
 		{
 			Instance = this;
@@ -51,8 +55,11 @@ namespace SlasherOnline
 				{
 				    Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
 
+				    SpawnCounter += 1;
+				    var spawner = Instance.Spawners[SpawnCounter];
 					// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-					PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
+					PhotonNetwork.Instantiate(this.playerPrefab.name, spawner.position, Quaternion.identity, 0);
+					Debug.Log($"Should Spawn in [{spawner.position}]");
 				}else{
 
 					Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
@@ -142,4 +149,4 @@ namespace SlasherOnline
 		
 		
     }
-}
+// }	
