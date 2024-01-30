@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ASlasherOnlinecripts/Scenes/LoginPlayfabScene.unity
+    path: Assets/ASlasherOnline/Scenes/LoginPlayfabScene.unity
     guid: a1f4540106a77234b8ebfd4143fac37e
   - enabled: 1
-    path: Assets/ASlasherOnlinecripts/Scenes/LobbyPhotonScene.unity
+    path: Assets/ASlasherOnline/Scenes/LobbyPhotonScene.unity
     guid: 9aadc73189ecfa34cb82a8cada87d2f8
   - enabled: 1
-    path: Assets/ASlasherOnlinecripts/Scenes/PunBasicBigRoom.unity
+    path: Assets/ASlasherOnline/Scenes/PunBasicBigRoom.unity
     guid: 659d64e9bb974904694b40579565ec3d
   m_configObjects: {}
