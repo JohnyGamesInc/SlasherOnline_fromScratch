@@ -8,8 +8,8 @@ using Photon.Realtime;
 
 
 //
-// namespace SlasherOnline
-// {
+namespace SlasherOnline
+{
 	/// <summary>
 	/// Game manager.
 	/// Connects and watch Photon Status, Instantiate Player
@@ -152,4 +152,4 @@ using Photon.Realtime;
 		
 		
     }
-// }	
+}	

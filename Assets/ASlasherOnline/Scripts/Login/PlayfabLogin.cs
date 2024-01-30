@@ -66,7 +66,7 @@ namespace SlasherOnline
             Debug.Log("Playfab Login SUCCESS");
             
             progressBar.gameObject.SetActive(false);
-            ChangeSceneToPhoton();
+            ChangeSceneToCharacterSelection();
         }
 
 
@@ -89,7 +89,7 @@ namespace SlasherOnline
         }
 
 
-        private void ChangeSceneToPhoton()
+        private void ChangeSceneToCharacterSelection()
         {
             SceneManager.LoadSceneAsync(1);
         }
