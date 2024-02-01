@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,5 +18,13 @@ namespace ASlasherOnline
         public TMP_Text XP;
         public TMP_Text Gold;
 
+        
+
+        private void OnDestroy()
+        {
+            
+        }
+        
+        
     }
 }
